@@ -1,5 +1,7 @@
 # Day 1: The Tyranny of the Rocket Equation
 
+https://adventofcode.com/2019/day/1
+
 ## Part 1
 
 Santa has become stranded at the edge of the Solar System while delivering
