@@ -10,7 +10,7 @@ struct Node {
 fn build_hash(buffer: &str) -> HashMap<&str, Node> {
     let mut hash = HashMap::new();
 
-    for (i, line) in buffer.lines().enumerate() {
+    for line in buffer.lines() {
         let parts = line.split(')').collect::<Vec<&str>>();
 
         hash.entry(parts[0]).or_insert(Node {
@@ -131,9 +131,9 @@ I)SAN";
         );
     }
 
-        #[test]
-        fn test_get_min_orbital_transfers() {
-            let buffer = "COM)B
+    #[test]
+    fn test_get_min_orbital_transfers() {
+        let buffer = "COM)B
 B)C
 C)D
 D)E
@@ -146,7 +146,7 @@ J)K
 K)L
 K)YOU
 I)SAN";
-            let hash = build_hash(&buffer);
-            assert_eq!(get_min_orbital_transfers(&hash, "YOU", "SAN"), 4);
-        }
+        let hash = build_hash(&buffer);
+        assert_eq!(get_min_orbital_transfers(&hash, "YOU", "SAN"), 4);
+    }
 }

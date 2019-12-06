@@ -27,7 +27,7 @@ fn run(buffer: &str, noun: u32, verb: u32) -> u32 {
             2 => {
                 parsed[out] = parsed[left] * parsed[right];
             }
-            _ => panic!("Unknown operation: {}", parsed[i]),
+            _ => panic!("Unknown operation: {}", op),
         }
 
         if i < parsed.len() - 4 {
@@ -36,8 +36,6 @@ fn run(buffer: &str, noun: u32, verb: u32) -> u32 {
             break;
         }
     }
-
-    // println!("{:?}", parsed);
 
     parsed[0]
 }
@@ -63,8 +61,6 @@ fn find_inputs(buffer: &str, out: u32) -> u32 {
     if noun < 0 || verb < 0 {
         panic!("Noun or verb not found");
     }
-
-    println!("{} {}", noun, verb);
 
     (100 * noun + verb) as u32
 }
