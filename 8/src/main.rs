@@ -58,6 +58,39 @@ impl Image {
 
         layer_with_fewer_zeros
     }
+
+    pub fn render(&self) -> String {
+        // 0 => black
+        // 1 => white
+        // 2 => transparent
+
+        // Create transparent output image
+        let mut output = vec![2; (self.width * self.height) as usize];
+
+        for layer in &self.layers {
+            for i in 0..layer.pixels.len() {
+                if output[i] == 2 && layer.pixels[i] < 2 {
+                    output[i] = layer.pixels[i];
+                }
+            }
+        }
+
+        let mut ascii = String::from("");
+
+        for y in 0..self.height {
+            for x in 0..self.width {
+                let idx = ((y * self.width) + x) as usize;
+                if output[idx] == 0 {
+                    ascii += " ";
+                } else {
+                    ascii += "X";
+                }
+            }
+            ascii += "\n";
+        }
+
+        ascii
+    }
 }
 
 fn main() -> io::Result<()> {
@@ -68,7 +101,10 @@ fn main() -> io::Result<()> {
     let layer_with_fewer_zeros = image.get_layer_with_fewer_zeros();
     let ones = layer_with_fewer_zeros.count_digit(1);
     let twos = layer_with_fewer_zeros.count_digit(2);
-    println!("{:?}", ones * twos);
+    println!("{}", ones * twos);
+
+    // Part 2
+    println!("{}", image.render());
 
     Ok(())
 }
