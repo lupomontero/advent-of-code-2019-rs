@@ -11,12 +11,6 @@ mod intcode_computer_v2;
 fn generate_permutations(arr: &mut [i32; 5]) -> std::vec::Vec<[i32; 5]> {
     let mut permutations = vec![];
 
-    fn swap(arr: &mut [i32; 5], a: i32, b: i32) {
-        let temp = arr[a as usize];
-        arr[a as usize] = arr[b as usize];
-        arr[b as usize] = temp;
-    }
-
     fn generate(n: usize, arr: &mut [i32; 5], permutations: &mut std::vec::Vec<[i32; 5]>) {
         if n == 1 {
             permutations.push(arr.to_owned());
@@ -24,9 +18,9 @@ fn generate_permutations(arr: &mut [i32; 5]) -> std::vec::Vec<[i32; 5]> {
             generate(n - 1, arr, permutations);
             for i in 0..(n - 1) {
                 if n % 2 == 0 {
-                    swap(arr, i as i32, n as i32 - 1);
+                    arr.swap(i, n - 1);
                 } else {
-                    swap(arr, 0, n as i32 - 1);
+                    arr.swap(0, n - 1);
                 }
                 generate(n - 1, arr, permutations);
             }
@@ -35,7 +29,7 @@ fn generate_permutations(arr: &mut [i32; 5]) -> std::vec::Vec<[i32; 5]> {
 
     generate(arr.len(), arr, &mut permutations);
 
-    return permutations;
+    permutations
 }
 
 fn get_max_output(program: &str) -> (i32, [i32; 5]) {
@@ -154,7 +148,8 @@ mod tests {
 
     #[test]
     fn test_4() {
-        let program = "3,26,1001,26,-4,26,3,27,1002,27,2,27,1,27,26,27,4,27,1001,28,-1,28,1005,28,6,99,0,0,5";
+        let program =
+            "3,26,1001,26,-4,26,3,27,1002,27,2,27,1,27,26,27,4,27,1001,28,-1,28,1005,28,6,99,0,0,5";
         let (max_output, max_output_combo) = get_max_output_with_feedback_loop(program);
         assert_eq!(max_output, 139629729);
         assert_eq!(max_output_combo, [9, 8, 7, 6, 5]);

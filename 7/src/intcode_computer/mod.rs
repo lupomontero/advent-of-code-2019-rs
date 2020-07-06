@@ -61,7 +61,7 @@ pub fn run(buffer: &str, input: std::vec::Vec<i32>) -> std::vec::Vec<i32> {
     let mut parsed: Vec<i32> = v.into_iter().map(|s| s.parse::<i32>().unwrap()).collect();
     let mut i = 0;
     let mut outputs = vec![];
-    let mut input = input.to_owned();
+    let mut input = input;
 
     loop {
         if i >= parsed.len() {
